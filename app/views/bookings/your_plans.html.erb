@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-3">
+    <ul class="sidebar-list">
+      <li class="sidebar-item"><%= link_to "Your Listings", lessons_path, class: "sidebar-link" %></li>
+      <li class="sidebar-item"><%= link_to "Your Plans", your_plans_path, class: "sidebar-link active" %></li>
+      <li class="sidebar-item"><%= link_to "Your Bookings", your_bookings_path, class: "sidebar-link" %></li>
+    </ul>
+  </div>
+  <div class="col-md-10" style="margin: 0 10% 0 20%;">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Your plans
+      </div>
+      <div class="panel-body">
+        <% @plans.each do |plan| %>
+          <div class="row">
+            <div class="row col-md-2">
+              <p><%= plan.status %> </p>
+              <%= link_to lesson_path(plan.lesson) do %>
+                <%= image_tag plan.lesson.cover_photo(:thumb) %>
+              <% end %>
+            </div>
+            <div class="row col-md-4">
+              <%= link_to plan.lesson.lesson_name, lesson_path(plan.lesson) %><br/><br/>
+              <span>
+                <%= image_tag avatar_url(plan.lesson.user), class: "img-circle avatar-small" %>
+                <%= link_to user_path(plan.lesson.user) do %>
+                    <%= plan.lesson.user.username %>
+              </span>
+                </div>
+                <% end %>
+              <span>
+            <div class="col-md-3">
+                <%= render partial: "reviews/teacher_form", locals: {booking: plan} if plan.Approved? %>
+            </div>
+              </span>
+          </div>
+                <hr />
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

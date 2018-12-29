@@ -1,0 +1,36 @@
+<% if @teacher_reviews.count == 0 %>
+	<div class="text-center">
+		<h3>No reviews yet <i class="fa fa-sad-tear"></i></h3>
+	</div>
+<% else %>
+	<% @teacher_reviews.order(id: :desc).each do |r| %>
+	<hr />
+	<div class="row">
+		<div class="col-md-3 text-center">
+			<%= image_tag avatar_url(r.teacher), class: "img-circle avatar-medium"%><br /> <br />
+			<strong>r.teacher.username</strong>
+		</div>
+		<div class="col-md-9">
+			<div id="star<%= r.id %>"></div>
+			<% if current_user && current_user == r.teacher%>
+			<span class="pull-right">
+				<%= link_to r, method: :delete, data: {confirm: "Are you sure?"} do %>
+				<i class="fa fa-trash-o fa-lg"></i>
+				<% end %>
+			</span>
+<% end %>
+		</div>
+		<!--display time comment made-->
+		<div> <%= r.comment %></div>
+			</div>
+
+		<script type="text/javascript">
+		  $('#star<%= r.id %>').raty({
+		    path: '/assets',
+		    readOnly: true;
+		    score: <%= r.star%>
+		  });
+		</script>
+	<% end %>
+<% end %>
+

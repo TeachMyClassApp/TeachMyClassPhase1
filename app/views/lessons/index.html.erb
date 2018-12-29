@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col-md-3">
+		<ul class="sidebar-list">
+     <li class="sidebar-item"><%= link_to "Your Listings", lessons_path, class: "sidebar-link active" %></li>
+      <li class="sidebar-item"><%= link_to "Your Plans", your_plans_path, class: "sidebar-link" %></li>
+      <li class="sidebar-item"><%= link_to "Your Bookings", your_bookings_path, class: "sidebar-link" %></li>
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<div class="panel panel-deafult">
+			<div class="panel-heading">
+				Lessons
+			</div>
+			<div class="panel-body">
+				<% @lessons.each do |lesson| %>
+				<div class="row">
+					<div class="col-md-2">
+						<%= image_tag lesson.cover_photo(:thumb), width: "200px", height: "100px" %>
+					</div>
+
+					<div class="col-md-7 padding-left">
+						<h4 style="margin-left: 20%;"><%= lesson.lesson_name %></h4>
+					</div>
+
+					<div class="col-md-3 right">
+					<%= link_to "", listing_lesson_path(lesson), class: "btn btn-form fa fa-pencil" %>
+					<%= link_to "", lesson, class: "btn btn-form fa fa-eye" %> 		
+					<%= link_to "", listing_lesson_path(lesson), class: "btn btn-form fa fa-trash" %> 			
+				</div>
+				</div>
+				<hr/>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+

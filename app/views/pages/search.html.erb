@@ -1,0 +1,276 @@
+<div id="main">
+	<div id="left">
+		<!--SEARCH PANEL-->	
+				<!--collapse PANEL-->	
+		<div class="row">
+			<div class="col-md-offset-4 col-md-4">
+				<button id="filter" class="btn btn-default" data-toggle="collapse" data-target="#collapsePanel">
+					More filters <i class="fa fa-chevron-down"></i>
+				</button>
+			</div>
+		</div>
+
+
+		<!--Filters PANEL-->	
+		<div class="row">
+			<br />
+			<div class="collapse" id="collapsePanel">
+				<%= search_form_for @search, url: search_path, remote: true do |f| %>
+				<div class="row">
+					<div class="col-md-8">
+						<label> Price range:</label>
+						<div id="slider-range">
+						</div>
+					</div>
+					<div class="col-md-2">
+						<label> Min Price </label>
+						<%= f.text_field :price_gteq, class: "form-control"%>
+					</div>
+					<div class="col-md-2">
+						<label> Max Price </label>
+						<%= f.text_field :price_lteq, class: "form-control"%>
+					</div>
+				</div>
+				<div class="row">
+					<h4>Between </h4>
+					<div class="col-md-6">
+						<%= text_field_tag :start_date, params[:start_date], readonly: true, placeholder: "Start date", class: "form-control datepicker"  %>
+					</div>
+					<div class="col-md-6">
+						<%= text_field_tag :end_date, params[:end_date], readonly: true, placeholder: "End date ", class: "form-control datepicker"  %>
+					</div>
+				</div>
+				<!--Learning Areas-->
+				<div class="row">
+					<div class="col-md-4">
+						<%= check_box_tag "q[lesson_type_eq_any][]", "English Language" %> English Language
+					</div>
+					<div class="col-md-4">
+						<%= check_box_tag "q[lesson_type_eq_any][]", "Mathmatics and Statistics" %> Mathmatics and Statistics
+					</div>
+					<div class="col-md-4">
+						<%= check_box_tag "q[lesson_type_eq_any][]", "Science" %> Science
+					</div>
+					<div class="col-md-4">
+						<%= check_box_tag "q[lesson_type_eq_any][]", "Social Studies" %> Social Studies
+					</div>
+					<div class="col-md-4">
+						<%= check_box_tag "q[lesson_type_eq_any][]", "Technology" %> Technology
+					</div>
+					<div class="col-md-4">
+						<%= check_box_tag "q[lesson_type_eq_any][]", "Te Reo Maori" %> Te Reo Maori
+					</div>
+					<div class="col-md-4">
+						<%= check_box_tag "q[lesson_type_eq_any][]", "Health and PE" %> Health and PE
+					</div>
+					<div class="col-md-4">
+						<%= check_box_tag "q[lesson_type_eq_any][]", "Languages" %> Languages
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-4">
+
+						<div class="form-group select">
+						<label>Achievement Objective</label>
+									<%= f.select :achievement_objective_gteq, [["Understanding about science", "NoS_1"], ["Investigating in science", "NoS_2"], ["Communicating in science", "NoS_3"]],
+															id: "achievement_objective", prompt: "Select a main Achievement Objective", class: "form-control" %>
+
+						</div>
+
+
+						<div class="form-group select">
+						<label>Curriculum Level</label>
+									<%= f.select :curriculum_level_gteq, [["Level One", 1], ["Level 2", 2], ["Level 3", 3], ["Level 4", 4], ["Level 5", 5], ["Level 6", 6], ["Level 7", 7], ["Level 8", 8]],
+													id: "curriculum_level", prompt: "Select a Curriculum Level", class: "form-control" %>
+						</div>
+
+						<div class="form-group select">
+							<label>Class Size</label>
+									<%= f.select :class_size_gteq, [["5 or less learners", 5], ["6-10 learners", 10], ["11-15 learners", 15], ["16-20 learners", 20], ["21-30 learners", 30], ["31-40 learners", 40], ["41-50", 50], ["More than 50", 60]],
+											id: "class_size", prompt: "Select a Class Size", class: "form-control" %>
+						</div>
+
+						<div class="form-group select">
+							<label>Duration</label>
+									<%= f.select :duration_gteq, [["An hour or less", "An hour or less"], ["Half a day", "Half a day"], ["One day", "One day"], ["More than one day", "More than one day"]],
+															id: "duration", prompt: "Select a Duration", class: "form-control" %>
+						</div>
+					</div>
+				</div>
+
+				<br />
+				<div class="row">
+					<div class="col-md-4">
+						<%= check_box_tag "q[registered_teacher_required]", true %> Registered Teacher Required?
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<%= check_box_tag "q[inquiry_learning]", true %> Inquiry Learning
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<%= check_box_tag "q[project_learning]", true %> Inquiry Learning
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<%= check_box_tag "q[technology_available]", true %> Inquiry Learning
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<%= check_box_tag "q[kc_thinking]", true %> Thinking
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<%= check_box_tag "q[kc_relating_to_others]", true %> Relating to Others
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<%= check_box_tag "q[kc_using_language_symbols_and_texts]", true %> Using Language, Symbols and Texts
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<%= check_box_tag "q[kc_participating_and_contributing]", true %> Participating and Contributing
+					</div>
+				</div>
+
+				<div class="row text-center">
+					<%= f.submit "Search", class: "btn btn-form" %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+		<br />
+		<div id="collapsePanel">
+		<br />
+		<div class="row">
+				<% @arrLessons.each do |lesson| %>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading preview">
+							<%= image_tag lesson.cover_photo(:thumb), height: "30%", width: "30%" %>
+							</div>
+					<div class="panel-body">
+						<%= link_to lesson.lesson_name, lesson %>
+					</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+		<div class="row" id="lesson_listing">
+			<%= render partial: "lessons/lesson_list", locals: {lessons: @arrLessons} %>
+		</div>
+	</div>
+</div>
+	<div id="right">
+		<!--GOOGLE MAP-->
+		<div id="map" width= "100%" height= "100%"></div>
+		<script src="https://maps.googleapis.com/maps/api/js"></script>
+		<script>
+			function initialize(lessons){
+				var location = {lat: 44.5403, lng:-78.5463}
+
+				if (lessons.length > 0) {
+					location = {lat: lessons[0].latitude, lng: lessons[0].longitude}
+				}
+
+			var map = new google.maps.Map(documentgetElementById('map'), {
+				center: location,
+				zoom: 12
+
+			});
+
+			var marker, inforwindow
+
+			lessons.forEach(function(lesson){
+				marker = new google.maps.Marker ({
+				position: {lat: lesson.latitude, lng: lesson.longitude}
+				map: map
+				});
+
+				inforwindow = new google.maps.InfoWindow({
+					content: "<div class='map_price'>$" + lesson.price + "</div>"
+			});
+			
+			
+			inforwindow.open(map, marker);
+			
+			})
+		}
+
+			google.maps.event.addDomListener(window, 'load', function() {
+				initialize(<%= raw @arrLessons.to_json %>)
+			});
+		</script>
+	</div>
+</div>
+
+	<script>
+		//Date Picker Logic for booking form
+		 $('start_date').datepicker({
+          dateFormat: 'dd-mm-yy',
+          minDate: 0,
+          maxDate: '3m',
+
+          onSelect: function(selected) {
+            $('start_date').datepicker("option", "minDate", selected);
+            $('#end_date').attr("disabled", false);
+        }
+    });
+
+		 $('start_date').datepicker({
+          dateFormat: 'dd-mm-yy',
+          minDate: 0,
+          maxDate: '3m',
+          onSelect: function(selected) {
+            $('start_date').datepicker("option", "maxDate", selected);
+        }
+    });
+		 //Motre filters toggle fuction
+
+		 var open = true;
+		 $('#filter').click(function() {
+		 	if (open) {
+		 		$('#filter').html("More filters <i class='fa fa-chevron-up'></i>")
+		 	} else {
+		 		$('#filter').html("More filters <i class='fa fa-chevron-down'></i>")
+		 	}
+		 	open = !open;
+		 });
+	</script>
+
+<script>
+	$(function(){
+		$("#q_price_gteq").val('100');
+		$("#q_price_lteq").val('500');
+
+		$("#slider-range").slider([
+			range: true,
+			min: 0,
+			max: 1000,
+			values: [100, 500],
+			slide: function(event, ui) {
+				$("#q_price_gteq").val(ui.values[0]);
+				$("#q_price_lteq").val(ui.values[1]);
+			}
+			]);
+
+	$(".ul-widget-header").css('background', '#00A699')
+	$(".ul-state-default, .ui-widget-content").css('background', 'white')
+	$(".ul-state-default, ui-widget-content").css('border-color', '#00A699')
+	})
+</script>

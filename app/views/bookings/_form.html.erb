@@ -1,0 +1,121 @@
+  <%= form_for ([@lesson, @lesson.bookings.new]) do |f| %>
+  <div>
+  <div class="panel panel-default">
+    <div class="panel-heading" style: "padding: 2%;"> <div class="pull-left"> Book <strong> <%=@lesson.lesson_name%> </strong> NOW! </div></div>
+    <div class="panel-body">
+      <div id="preview" style="display: none">
+        <!--If Lesson given pricing_type free on setup then it has a cost of $0 and does not require stripe @checkout -->
+        <%if @lesson.Free? %>
+          <p>Free</p>
+        <!--If Lesson given pricing_type Learner cost is calculated as number_of_learners * per learner cost -->
+        <% elsif @lesson.Learner? %>
+        <table class="reservation-table">
+          <tbody>
+            <tr>
+              <td> Number of Learners </td>
+              <td> <%=f.number_field :number_of_learners, class: "form-field form-control", min: 0, max:99 %> </td>
+            </tr>
+            <tr>
+              <td> Total Session Cost </td>
+              <td> <span id="booking_total">num of learners * price  </span></td>
+            </tr>
+          </tbody>
+        </table>
+        <!--If Lesson given pricing_type Session cost is calculated as lesson cost * number of session (currently always one) -->
+        <% elsif @lesson.Session? %>
+      <table class="reservation-table">
+          <tbody>
+            <tr>
+              <td> Total Session Cost </td>
+              <td> <span> <%= @lesson.price %> (up to <%= @lesson.class_size %> students). </span></td>
+            </tr>
+          </tbody>
+      </table>
+        <% end %>
+      </div>
+     <br>
+      <br />
+     <!--BOOTSTRAP LINKED PICKERS-->
+      <div class="row" style="margin-left: 20%">
+    <div class='col-md-5'>
+        <div class="form-group">
+            <div class='input-group date' id='booking_start_datetime' style="border: 2px #155e63">
+              <%=f.text_field :start_datetime, class: "form-field form-control input-group-addon", id: "booking_start_datetime" %>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-5'>
+        <div class="form-group">
+            <div class='input-group date' id='booking_end_datetime' style="border: 2px #155e63">
+                      <%=f.text_field :end_datetime,  class: "form-field form-control input-group-addon", id: "booking_end_datetime" %>
+                          <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+      
+      <% if @lesson.Instant? %>
+      <br/>
+      <p style="text-align: center">This lesson can be booked instantly.</p>
+      <% else %>
+      <br />
+      <p style="text-align: center"> This lesson can be provisionally booked, and the expert will be in touch shortly to confirm. </p>
+        <% end%>
+  <br/>
+  <span>
+  <% if @lesson.Instant? %>
+    <%= f.submit "Book Now", id: "btn_book", class: "btn btn-normal btn-block", style: "width: 50%; margin-left: 25%", disabled: false %>
+  <% else %>
+    <%= f.submit "Request Now", id: "btn_book", class: "btn btn-normal btn-block", style: "width: 50%; margin-left: 25%", disabled: false %>
+  <% end %>
+  </span>
+<% end %>
+</div>
+  </div>
+</div>
+
+
+<!--BOOTSTRAP LINKED PICKERS SCRIPT-->
+<script type="text/javascript">
+    $(function () {
+
+      $.ajax({
+        url: '<%= preload_lesson_path(@lesson)%>',
+        dateTyp: 'json',
+        success: function(data) {
+
+          $.each(data, function(arrID, arrValue) {
+            for(var d = new DateTime(arrValue.start_datetime); d <= new DateTime(arrValue.end_datetime); d.setDateTime(d.getDateTime())){
+              console.log(d);
+            }
+          });
+        }
+      });
+
+      $('#booking_start_datetime').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            format: 'DD/MM/YY HH:mm'
+      });
+      $('#booking_end_datetime').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            format: 'DD/MM/YY HH:mm'
+      });
+      $("#booking_start_datetime").on("dp.change", function (e) {
+            $('#booking_end_datetime').data("DateTimePicker").minDate(e.date);
+
+      });
+      $("#booking_end_datetime").on("dp.change", function (e) {
+            $('#booking_start_datetime').data("DateTimePicker").maxDate(e.date);
+      });
+    });
+</script>
+
+
+
+
+

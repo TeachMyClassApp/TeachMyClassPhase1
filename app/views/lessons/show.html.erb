@@ -1,0 +1,183 @@
+<% content_for :head do %>
+<title><%= @lesson.lesson_name %> | Teach My Class </title>
+
+<!--Twitter-->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@teachmyclass">
+<meta name="twitter:creator" content="<%=@lesson.user.username%>">
+<meta name="twitter:title" content="<%= @lesson.lesson_name %>">
+<meta name="twitter:description" content="<%= @lesson.description%>">
+<meta name="twitter:image:src" content="<%= @lesson.cover_photo(nil) %>">
+
+<!--Open Graph-->
+<meta propety="og:site_name" content="Teach My Class">
+<meta propety="og:type" content="website">
+<meta propety="og:title" content="<%= @lesson.lesson_name %>">
+<meta propety="og:description" content="<%= @lesson.description%>">
+<meta propety="og:image" content="<%= @lesson.cover_photo(nil) %>">
+<% end %>
+
+<!-- Image Header -->
+<div class="row">
+	<div class="col-md-12">
+		<%= image_tag @lesson.cover_photo(nil), width: "100%", height:"500px" %>
+	</div>
+
+<br/> <br/>
+<% if current_user.id == @lesson.user.id %>
+					<%= link_to "", listing_lesson_path(@lesson), class: "btn btn-form fa fa-pencil" %>	
+					<%= link_to "", listing_lesson_path(@lesson), class: "btn btn-form fa fa-trash" %>
+<% end %>
+</div>
+<div style= "margin: 2% 10% 2% 10%;">
+<div class="row">
+<!-- Left Panel -->
+	<div class="col-md-8">
+		<!--Lesson Name-->
+		<div class="row">
+			<div class="col-md-8">
+				<h1><%= @lesson.lesson_name %></h1>
+				<%= @lesson.address %>
+			</div>
+			<div class="col-md-4 text-center">
+				<%= image_tag avatar_url(@lesson.user), class: "img-circle avatar-large"%> <br /> <br />
+				<%= @lesson.user.username%>
+			</div>
+		</div>
+	</div>
+</div>
+		<hr/>
+
+
+		<!--Lesson Info-->
+		<div class="row text-babu">
+			<div class="row text-center row-space-1">
+				<div class="col-md-3">
+					<i class="fa fa-graduation-cap fa-2x"></i>
+				</div>
+				<div class="col-md-3">
+					<i class="fa fa-cubes fa-2x"></i>
+				</div>
+				<div class="col-md-3">
+					<i class="fa fa-users fa-2x"></i>
+				</div>
+				<div class="col-md-3">
+					<i class="fa fa-clock-o fa-2x"></i>
+				</div>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-3"><%= @lesson.learning_area %></div>
+				<div class="col-md-3">Curriculum Level <%= @lesson.curriculum_level %> </div>
+				<div class="col-md-3"><%= pluralize(@lesson.class_size, "student" )%></div>
+				<div class="col-md-3">
+					<% if @lesson.duration < 60 %>
+						<%= (@lesson.duration) %> mins </div>
+					<% elsif @lesson.duration == 90 %>
+						1 1/2 hrs
+					<% else %>
+					<%= (@lesson.duration / 60) %> hrs
+					<% end %>
+			</div>
+		</div>
+		<hr/>
+
+		<!-- Right Panel -->
+	<div class="col-md-9 row align-items-center">
+	<!--booking form -->
+		<%= render 'bookings/form' %>
+	</div>
+
+
+				<!--Lesson Description-->
+		<div class="row">
+			<div class="col-md-12">
+				<h3> About this Lesson </h3>
+				<p><%= @lesson.description %></p> <br/>
+				<strong><p><%= @lesson.keywords %></p></strong>
+			</div>
+		</div>
+		<hr/>
+
+		<!--Lesson Features-->
+		<div class="row padding-top">
+			<div class="col-md-3">
+				<h4> Features </h4>
+			</div>
+
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-6">
+						<ul class="features padding-top">
+							<li class="<%= 'text-line-through' if !@lesson.registered_teacher_required %>"> Registered Teacher </li>
+							<li class="<%= 'text-line-through' if !@lesson.technology_available %>"> Technology Required </li>
+							<li class="<%= 'text-line-through' if !@lesson.inquiry_learning %>"> Inquiry Learning </li>
+							<li class="<%= 'text-line-through' if !@lesson.project_learning %>"> Project-Based Learning </li>
+						</ul>
+						</div>
+					<div class="col-md-6 pull-right">
+						<ul class="features padding-top">
+							<li class="<%= 'text-line-through' if !@lesson.kc_thinking %>"> Thinking </li>
+							<li class="<%= 'text-line-through' if !@lesson.kc_relating_to_others %>"> Relating to Others </li>
+							<li class="<%= 'text-line-through' if !@lesson.kc_using_language_symbols_and_texts %>"> Using Language, Texts and Symbols </li>
+							<li class="<%= 'text-line-through' if !@lesson.kc_participating_and_contributing %>"> Participating and Contributing </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr/>
+
+<!-- Reviews / Stars -->
+	<div class="row">
+		<div class="col-md-12">
+			<h3> <%= pluralize(@teacher_reviews.count, "Review") %>
+				<div id="average_rating"></div>
+			</h3>
+			<div class="container">
+				<div> <%= render "reviews/teachers_list" %> </div>
+			</div>
+		</div>
+	</div>
+	<br />
+
+
+<!-- Google Maps -->
+	<div class="row">
+		<div id="map" style="width: 100%; height: 400px"></div>
+	</div>
+</div>
+
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQys3wStSI4v2tAKDkr80bXtFW-iACZWw&callback=initMap"></script>
+		<script>
+		function initialize() {
+			var location = {lat: <%= @lesson.latitude %>, lng: <%= @lesson.longitude %>};
+			var map = new google.maps.Map(document.getElementById('map'), {
+				center: location,
+				zoom: 14
+				});
+		
+
+			var marker = new google.maps.Marker({
+				position: location,
+				map: map
+			});
+
+			var infoWindow = new google.maps.InfoWindow({
+				content: '<div id="content"><%= image_tag @lesson.cover_photo(:thumb) %></div>'
+			});
+
+			infoWindow.open(map, marker);
+
+		}
+
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+
+<script type="text/javascript">
+  $('#average_rating').raty({
+    path: '/assets',
+    readOnly: true,
+    score: <%= @lesson.average_rating%>
+  });
+</script>

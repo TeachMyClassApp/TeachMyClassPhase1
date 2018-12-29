@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-3">
+    <ul class="sidebar-list">
+      <li class="sidebar-item"><%= link_to "Your Listings", lessons_path, class: "sidebar-link" %></li>
+      <li class="sidebar-item"><%= link_to "Your Plans", your_plans_path, class: "sidebar-link" %></li>
+      <li class="sidebar-item"><%= link_to "Your Bookings", your_bookings_path, class: "sidebar-link active" %></li>
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Your Bookings
+      </div>
+      <div class="panel-body">
+        <% @lessons.each do |lesson| %>
+          <% lesson.bookings.each do |booking|%>
+            <div class="row">
+            <div class="col-md-2">
+              <%= link_to lesson_path(booking.lesson) do %>
+                <%=image_tag booking.lesson.cover_photo(:thumb) %>
+              <p><%= booking.status %></p>
+            <div class="form-inline">
+            <% if booking.Waiting? %>
+              <%= link_to approve_booking_path(booking), method: :post do %> <i class="fa fa-thumbs-up fa-lg"></i> <% end %> |
+              <%= link_to decline_booking_path(booking), method: :post do %> <i class="fa fa-thumbs-down fa-lg"></i> <% end %>
+            </div>
+              <% end %>
+              <% end %>
+            </div>
+
+            <div class="col-md-2">
+
+            </div>
+
+              <div class="col-md-5">
+              <%= link_to booking.lesson.lesson_name, lesson_path(booking.lesson) %> <br/> <br/>
+              <span>
+                <%= link_to user_path(booking.user) do %>
+                <%=image_tag avatar_url(booking.user), class: "img-circle avatar-small" %>
+                 <%= booking.user.username %>
+              <% end %>
+              </span>
+              </div>
+            <div class="col-md-3 text-right">
+              <%= render partial: "reviews/expert_form", locals: {booking: booking} if booking.Approved? %>
+            </div>
+            <div>
+          <% end %>
+        <% end %>
+    </div>
+  </div>
+</div>
+
+		</div>
+	</div>
+</div>
+
+
+

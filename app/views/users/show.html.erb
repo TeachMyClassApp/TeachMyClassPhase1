@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-md-3">
+		<div class="center">
+			<% if current_user && current_user != @user %>
+			<%= link_to "Start Chat", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: :post, class: "btn btn-normal"%>
+			<% end %>
+		</div>
+		<br />
+		<div class="panel-heading"> Verification</div>
+		<div class="panel-body">
+		<ul class="sidebar-list">
+			<% if @user.confirmation_token %>
+				<li class="side-bar-item"> Email Address<span class="pull-right icon babu"><i class="fa fa-check-circle-o"></i></span></li>
+			<% end %>
+			<% if @user.provider %>
+			<li>Social Media<span class="pull-right icon babu"><i class="fa fa-check-circle-o"></i></span></li>
+			<% end %>
+			<% if current_user.phone_verified %>
+				<li>Phone Number<span class="pull-right icon babu"><i class="fa fa-check-circle-o"></i></span></li>
+			<% end %>
+		</ul>
+		</div>
+	</div>
+	<h2> <%= @user.username %></h2>
+		<div class="description row-space-3">
+	<h2> <%= @user.description %></h2>
+
+
+<<div class="col-md-9 col-offset-3">>
+<h3>Lessons (<%= @lessons.length%>)</h3> 
+<div class="row">
+	<div class="row" id="lesson_listing">
+			<%= render partial: "lessons/lesson_list", locals: {lessons: @lessons} %>
+		</div>
+	</div>
+</div>
+</div>
+<br/>
+<h3>Reviews from Teachers (<%= @teacher_reviews.count %>) </h3>
+<div class="row">
+		<%= render "reviews/teachers_list" %>
+</div>
+<br/>
+<h3>Reviews from Experts (<%= @expert_reviews.count %>) </h3>
+<div class="row">
+		<%= render "reviews/expert_list" %>
+</div>
+</div>

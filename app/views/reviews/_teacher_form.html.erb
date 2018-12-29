@@ -1,0 +1,46 @@
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-normal btn-lg" data-toggle="modal" data-target="#myModal_<%= booking.id%>">
+Review the Lesson
+</button>
+
+<!-- Modal -->
+<div id="myModal_<%=booking.id%>"  class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title text-left">Review the Lesson</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for current_user.teacher_reviews.new do |f| %>
+      <div class="form-group text-center">
+        <div id="stars"></div>
+      </div>
+      <div class="form-group">
+        <%= f.text_area :comment, rows: 3, class: "form-control" %>
+      </div>
+        <%= f.hidden_field :lesson_id, value: booking.lesson.id %>
+        <%= f.hidden_field :booking_id, value: booking.id %>
+        <%= f.hidden_field :expert_id, value: booking.lesson.user.id %>
+        <div class="text-center">
+          <%= f.submit "Post Review", class: "btn btn-normal" %>
+        </div>
+      <% end %>
+      </div>
+      <div class="modal-footer">
+       <p> This review will be public. Never, ever, share names or identifying information of students, or of other adults without their consent. Thanks.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--RATY JS STARS FOR RATING SYSTEM-->
+<script>
+  $('#stars').raty({
+    path: '/assets',
+    scoreName: 'teacher_review[star]',
+    score: 5
+  });
+</script>

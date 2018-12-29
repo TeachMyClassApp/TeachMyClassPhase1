@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Teach My Class</title>
+    <link rel="shortcut icon"  type="image/png" href="/assets/images/favicon.png"/>
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %> 
+        <%= yield :head %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQys3wStSI4v2tAKDkr80bXtFW-iACZWw&libraries=geometry,places"></script>
+    <%= javascript_include_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Leckerli+One' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css">
+    <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/t...">-->
+    <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='48ed52952cc60d8163cfd6fa8fda47a8f1416cab00907141dbcd646b492a9bd6';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+  </head>
+
+  <body>
+	<%= render 'shared/navbar' %>
+  <%= render 'shared/message' %>
+<div>
+  <% if current_user %>
+    <input id="user_id" type="hidden" value="<%= current_user.id %>">
+  <% end %>
+</div>
+	<div class="">
+	 	<%= yield %>
+	</div>
+    <%= render 'shared/footer' %>
+  </body>
+
+
+</html>
+

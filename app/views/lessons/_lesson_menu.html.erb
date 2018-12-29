@@ -1,0 +1,42 @@
+<ul class="sidebar-list" style="margin-left: 6%">
+	<li class="sidebar-item">
+		<%= link_to "Listing", listing_lesson_path, class: "sidebar-link active" %>
+		<span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+	</li>
+	<li class="sidebar-item">
+		<%= link_to "Pricing", pricing_lesson_path, class: "sidebar-link active" %>
+		<% if !@lesson.price.blank? %>
+		<span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+		<% end %>
+	</li>
+	<li class="sidebar-item">
+		<%= link_to "Description", description_lesson_path, class: "sidebar-link active" %>
+		<% if !@lesson.lesson_name.blank? %>
+		<span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+		<% end %>
+	</li>
+	<li class="sidebar-item">
+		<%= link_to "Photos", photo_upload_lesson_path, class: "sidebar-link active" %>
+		<% if !@lesson.photos.blank? %>
+		<span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+		<% end %>
+	</li>
+	<li class="sidebar-item">
+		<%= link_to "Features", features_lesson_path, class: "sidebar-link active" %>
+		<span id="photo-check" class="pull-right text-babu"><i class="fa fa-check"></i></span>
+	</li>
+	<li class="sidebar-item">
+		<%= link_to "Location", location_lesson_path, class: "sidebar-link active" %>
+		<% if !@lesson.address.blank? %>
+		<span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+		<% end %>
+	</li>
+</ul>
+<hr />
+
+<% is_ready = !@lesson.active && !@lesson.price.blank? && !@lesson.photos.blank? && !@lesson.address.blank? && !@lesson.lesson_name.blank?%>
+
+<%= form_for @lesson do |f| %>
+	<%=f.hidden_field :active, value: true%>
+	<%= f.submit "Get Offers", id: "publish_button", class: "btn btn-normal btn-normal", disabled: !is_ready%>
+	<% end %>

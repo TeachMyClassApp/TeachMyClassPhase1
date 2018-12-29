@@ -1,0 +1,169 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20181219203852) do
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "lesson_id"
+    t.datetime "start_datetime"
+    t.string   "datetime"
+    t.datetime "end_datetime"
+    t.integer  "price"
+    t.string   "total"
+    t.string   "integer"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "status"
+    t.integer  "booked_status",      default: 0
+    t.integer  "number_of_learners"
+    t.index ["lesson_id"], name: "index_bookings_on_lesson_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "calendars", force: :cascade do |t|
+    t.date     "day"
+    t.integer  "price"
+    t.integer  "status"
+    t.integer  "lesson_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_calendars_on_lesson_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string   "learning_area"
+    t.string   "achievement_objective"
+    t.integer  "curriculum_level"
+    t.integer  "class_size"
+    t.integer  "duration"
+    t.boolean  "registered_teacher_required"
+    t.boolean  "inquiry_learning"
+    t.boolean  "project_learning"
+    t.string   "technology_available"
+    t.string   "description"
+    t.boolean  "kc_thinking"
+    t.boolean  "kc_relating_to_others"
+    t.boolean  "kc_using_language_symbols_and_texts"
+    t.boolean  "kc_participating_and_contributing"
+    t.string   "lesson_name"
+    t.string   "address"
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.decimal  "price"
+    t.boolean  "active"
+    t.         "user"
+    t.integer  "user_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "instant",                             default: 1
+    t.integer  "pricing_type",                        default: 0
+    t.string   "keywords"
+    t.index ["user_id"], name: "index_lessons_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "context"
+    t.integer  "user_id"
+    t.integer  "conversation_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.index ["lesson_id"], name: "index_photos_on_lesson_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text     "comment"
+    t.integer  "star",       default: 5
+    t.integer  "lesson_id"
+    t.integer  "booking_id"
+    t.integer  "expert_id"
+    t.integer  "teacher_id"
+    t.string   "type"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["booking_id"], name: "index_reviews_on_booking_id"
+    t.index ["expert_id"], name: "index_reviews_on_expert_id"
+    t.index ["lesson_id"], name: "index_reviews_on_lesson_id"
+    t.index ["teacher_id"], name: "index_reviews_on_teacher_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.boolean  "enable_sms",   default: true
+    t.boolean  "enable_email", default: true
+    t.integer  "user_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["user_id"], name: "index_settings_on_user_id"
+  end
+
+  create_table "uploads", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "username"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "image"
+    t.string   "phone_number"
+    t.string   "string"
+    t.string   "description"
+    t.string   "text"
+    t.string   "pin"
+    t.boolean  "phone_verified"
+    t.string   "stripe_id"
+    t.integer  "unread",                 default: 0
+    t.string   "avatar"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+end

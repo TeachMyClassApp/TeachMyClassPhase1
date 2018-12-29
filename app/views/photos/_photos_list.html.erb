@@ -1,0 +1,22 @@
+<% if @photos.count > 0 %>
+<br /> <br />
+<div class="row">
+	<% @photos.each do |photo| %>	
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading-preview">
+				<%= image_tag photo.image.url()%>
+			</div>
+			<div class="panel-body">
+				<span class="pull-right">
+					<%= link_to lesson_photo_path(photo.lesson_id, photo), remote: true, method: :delete, data: {confirm: "Are you sure you want to delete this picture?"} do %>
+						<i class="fa fa-trash"></i>
+					<% end %>
+				</span>
+			</div>
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+

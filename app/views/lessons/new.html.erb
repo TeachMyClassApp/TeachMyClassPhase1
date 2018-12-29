@@ -1,0 +1,79 @@
+<div class="panel panel-default" style="margin: 0 5% 5% 5%">
+	<div class="panel-heading">
+		Create Your Lesson
+	</div>
+<div class="panel-body">
+	<div class="contained80">
+
+		<%= form_for @lesson do |f| %>
+
+		<div class="col-md-4 select">
+				<div class="form-group">
+					<label>Booking Type</label>
+					<%= f.select :instant, Lesson.instants.map {|key,value| [key.humanize, key]}, selected: 'Instant', prompt: "Select a Booking Type", class: "form-control" %>
+
+				</div>
+			</div>
+		
+		<div class="row">
+			<div class="col-md-4 select">
+				<div class="form-group">
+					<label>Learning Area</label>
+					<%= f.select :learning_area, [["English", "English"], ["The Arts", "The Arts"], ["Mathmatics and Statistics", "Mathmatics and Statistics"], ["Health and PE", "Health and PE"], ["Languages", "Languages"],
+													 ["Te Reo Maori", "Te Reo Maori"], ["Science", "Science"], ["Social Studies", "Social Studies"], ["Technology", "Technology"]],
+													 id: "learning_area", prompt: "Select a Curriculum Area", class: "form-control" %>
+
+				</div>
+			</div>
+
+			
+
+
+		<div class="col-md-4 select">
+			<div class="form-group">
+				<label>Curriculum Level</label>
+				<%= f.select :curriculum_level, [["Level One", 1], ["Level Two", 2], ["Level Three", 3], ["Level Four", 4], ["Level Five", 5],
+											["Level Six", 6], ["Level Seven", 7], ["Level Eight", 8]],
+											id: "curriculum_level,", prompt: "Select a Curriculum Level", class: "form-control" %>
+
+			</div>
+		</div>
+
+		<div class="col-md-4 select">
+				<div class="form-group">
+					<label>Achievement Objective</label>
+					<%= f.select :achievement_objective, [["Understanding about science", "NoS_1"], ["Investigating in science", "NoS_2"], ["Communicating in science", "NoS_3"]],
+													id: "achievement_objective", prompt: "Select a main Achievement Objective", class: "form-control" %>
+
+				</div>
+		</div>
+
+
+		<div class="col-md-4 select">
+				<div class="form-group">
+					<label>Max Students Per Session</label>
+					<%= f.select :class_size, [["5 or less learners", 5], ["6-10 learners", 10], ["11-15 learners", 15], ["16-20 learners", 20], ["21-30 learners", 30],
+													 ["31-40 learners", 40], ["41-50", 50], ["More than 50", 60]],
+													 id: "class_size,", prompt: "Select a Class Size", class: "form-control" %>
+
+				</div>
+			</div>
+
+		<div class="col-md-4 select">
+				<div class="form-group">
+					<label>Duration</label>
+					<%= f.select :duration, [["30 minutes of less", 30], ["1 Hour", 60], ["90 minutes", 90], ["2 Hours", 120], ["Half a Day", 360], ["Full Day", 360]],
+													 id: "duration,", prompt: "Select a Duration", class: "form-control" %>
+
+				</div>
+		</div>
+
+		</div>
+
+		<div><%= f.submit "Create My Lesson", class: "btn btn-normal" %></div>
+
+		<% end %>
+	</div>
+</div>
+</div>
+

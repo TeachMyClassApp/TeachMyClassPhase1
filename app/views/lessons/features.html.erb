@@ -1,0 +1,57 @@
+<div class="row" style="margin-right: 5%">
+	<div class="col-md-3">
+		<%= render 'lesson_menu' %>
+	</div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				Features
+			</div>
+
+			<div class="panel-body">
+				<div class="container">
+					<%= form_for @lesson do |f| %>
+
+						<div class="row form-group col-md-4">
+							<div class="">
+								<%= f.check_box :registered_teacher_required %> Registered Teacher Required?
+							</div>
+							<div class="">
+								<%= f.check_box :inquiry_learning %> Inquiry Learning
+							</div>
+							<div class="">
+								<%= f.check_box :project_learning %> Project-Based Learning
+							</div>
+							<div class="">
+								<%= f.check_box :technology_available %> Teachnology Available (Ipads, Chromebooks etc.)
+							</div>
+						</div>
+						<div class="row form-group col-md-4">
+							<h4> Key Competencies </h4>
+							<div class="">
+								<%= f.check_box :kc_thinking %> Thinking
+							</div>
+							<div class="">
+								<%= f.check_box :kc_relating_to_others %> Relating to Others
+							</div>
+							<div class="">
+								<%= f.check_box :kc_using_language_symbols_and_texts %> Using Language, Symbols and Texts
+							</div>
+							<div class="">
+								<%= f.check_box :kc_participating_and_contributing %> Partcipating and Contributing
+							</div>
+						</div>
+						<br />
+						<br />
+						<div class="text-center">
+							<div><%= f.submit "Save My Features", class: "btn btn-form" %></div>
+						</div>
+					</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+                             

@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-md-3">
+		<ul class="sidebar-list">
+			<li class="sidebar-item"><%= link_to "Payment Method", payment_method_path, class: "sidebar-link active"%></li>
+			<li class="sidebar-item"><%= link_to "Get Paid", payment_method_path, class: "sidebar-link "%></li>
+			<li class="sidebar-item"><%= link_to "Communications Settings", communications_settings_path, class: "sidebar-link "%></li>
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading"> Payment Method </div>
+			<div class="panel-body">
+				<div class="container">
+
+					<%=form_tag '/add_card', method: "post", id: "add-payment" %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+					 
+					  
+<script src="https://js.stripe.com/v3/"></script>
+var stripe = Stripe('pk_test_G6k7Ws5DNiHpVng8j2ONUxGw');
+var elements = stripe.elements();
+<script>
+</script>

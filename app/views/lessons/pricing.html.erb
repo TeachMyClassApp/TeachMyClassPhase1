@@ -1,0 +1,49 @@
+<div class="row" style="margin-right: 5%">
+	<div class="col-md-3">
+		<%= render 'lesson_menu' %>
+	</div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				Pricing
+			</div>
+
+			<div class="panel-body">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-offset-3 col-md-6">
+						<%= form_for @lesson do |f| %>
+
+							<div class="row">
+								<div class="form-group" id="choose">
+									<p style="margin-top: 15%">Per</p>
+									<span id="choose"><%= f.select :pricing_type, Lesson.pricing_types.map {|key,value| [key.humanize, key]}, prompt: "Select a Pricing Type", class: "form-control", id: "choose",  style: "display: inline; margin-left: 20%" %> </span>
+								<%if !@lesson.Free?%>
+								<span class="pull-left" id> $ <%=f.number_field :price, :class => 'text_field', :step => 0.01, min: 0, class: "form-control", style: "display: inline", id: "choose", required: "true" %>  </span>
+									<% end %>
+								</div>
+							<div id="update"> </div>
+							</div>
+					<div class="text-center">
+						<div><%= f.submit "Save the Price", class: "btn btn-form" %></div>
+				</div>
+							<% end %>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    $('#choose').change(function(event) {
+        $.post('lesson_edit_path', { selected: $('#choose').val() },
+            function(data) {
+                $('#update').html(data);
+            }
+        );            
+    });
+</script>

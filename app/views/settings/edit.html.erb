@@ -1,0 +1,35 @@
+<div class="row">
+	<div class="col-md-3">
+		<ul class="sidebar-list">
+			<li class="sidebar-item"><%= link_to "Payment Method", payment_method_path, class: "sidebar-link"%></li>
+			<li class="sidebar-item"><%= link_to "Get Paid", payment_method_path, class: "sidebar-link"%></li>
+			<li class="sidebar-item"><%= link_to "Communications Settings", communications_settings_path, class: "sidebar-link active"%></li>
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading"> 
+				<h3> Communications Settings </h3>
+				<p> We'd love to stay in touch, but we understand if you don't feel the same. If you'd rather we didn't email or text you let us know below.</p>
+			</div>
+		<div class="panel-body">
+			<div class="container ">
+				<%= form_for :setting do |f|%>
+				<div class="row form-group">
+					<div class="col-md-4 text-center">
+						<%= f.check_box :enable_email %> Email Alerts and Reminders
+					</div>
+
+					<div class="col-md-4 text-center">
+						<%= f.check_box :enable_sms %> Text Message Alerts and Reminders
+					</div>
+				</div>
+				<div class="text-center">
+					<%= f.submit "Save", class: "btn btn-normal" %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>

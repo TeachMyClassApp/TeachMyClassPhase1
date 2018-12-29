@@ -1,0 +1,91 @@
+<div class="header-hero">
+		<div class="">		
+			<div class="cover"> 		
+
+			<h1 class="jumbo-text"><span class="text-green">Find experts to  lead lessons in your class.</span> Invite our community 
+of experts to #teachmyclass.</h1>
+
+	<div class="lesson-search" id="lesson-search">
+		<%= form_tag search_path, method: :get do %>
+		<%= text_field :search, params[:search], placeholder: "🔎 find a lesson...", class: "home-field-input" %>
+			<br /> <br />
+				<% end %>
+	</div>
+
+	<br /> <br />
+			</div>
+</div>
+</div>
+<!--Lessons-->
+<div class="row contained80 suggested-lessons">
+	<h3 class="suggested-lessons-title">Lessons You Might Like</h3>
+	<div class="row" id="lesson_listing">
+			<%= render partial: "lessons/lesson_list", locals: {lessons: @lessons} %>
+	</div>
+</div>
+</div>
+<!-- Lessons-->
+<h3> Learning Areas </h3>
+
+<!--Science  Discovery Card-->
+<div class="row learning-areas">
+	<div class="col-md-3 col-sm-12 learning-areas-title">
+		<a href="http://localhost:3000/search?utf8=✓&search=science"> 
+			<div class="discovery-card" style="background-image: url('/assets/sci.jpg')"></div> Science
+		</a>
+	</div>
+
+<!--Arts  Discovery Card-->
+	<div class="col-md-3 col-sm-12 learning-areas-title">
+		<a href="http://localhost:3000/search?utf8=✓&search=arts"> 
+			<div class="discovery-card" style="background-image: url('/assets/art.jpg')"></div> The Arts 
+		</a>
+	</div>
+
+<!--Health and PE Discovery Card-->
+	<div class="col-md-3 col-sm-12 learning-areas-title">
+		<a href="http://localhost:3000/search?utf8=✓&search=PE"> 
+			<div class="discovery-card" style="background-image: url('/assets/pe.jpg')"></div> PE and Health
+		</a>
+	</div>
+
+<!--Te Reo Discovery Card-->
+	<div class="col-md-3 col-sm-12 learning-areas-title">
+		<a href="http://localhost:3000/search?utf8=✓&search=Te+Reo"> 
+			<div class="discovery-card" style="background-image: url('/assets/tr.jpg')"></div> Te Reo Maori
+		</a>
+	</div>
+</div>
+
+
+	<script>
+		 $('start_date').datepicker({
+          dateFormat: 'dd-mm-yy',
+          minDate: 0,
+          maxDate: '3m',
+          onSelect: function(selected) {
+            $('start_date').datepicker("option", "minDate", selected);
+            $('#end_date').attr("disabled", false);
+        }
+    });
+
+		 $('start_date').datepicker({
+          dateFormat: 'dd-mm-yy',
+          minDate: 0,
+          maxDate: '3m',
+          onSelect: function(selected) {
+            $('start_date').datepicker("option", "maxDate", selected);
+        }
+    });
+
+		 $('#lesson-search').keypress(function(e){
+      		if(e.which == 13){
+           $(this).closest('form').submit();
+       }
+    });
+
+		 $(function(){
+		 	$("#autolocation").geocomplete();
+		 })
+
+	</script>

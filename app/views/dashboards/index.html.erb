@@ -1,0 +1,49 @@
+<div class="row">
+<div style="margin: 0 5%">
+<div class="row col-md-3">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<%= image_tag avatar_url(current_user), class: "avatar-full" %>
+			<%= current_user.username %>
+		</div>
+		<div class="panel-body">
+			<ul class="sidebar-list">
+			<p><strong>Verified by</strong></p>
+				<% if current_user.confirmation_token %>
+					<li class="side-bar-item"> Email Address<span class="pull-right icon babu"><i class="fa fa-check-circle-o"></i></span></li>
+				<% end %>
+				<% if current_user.provider %>
+					<li>Social Media<span class="pull-right icon babu"><i class="fa fa-check-circle-o"></i></span></li>
+				<% end %>
+				<% if current_user.phone_verified %>
+					<li>Phone Number<span class="pull-right icon babu"><i class="fa fa-check-circle-o"></i></span></li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+	</div>
+
+	<!--Notifications Centre -->
+	<div class="row col-md-8" style="margin: 0 0 1% 3%">
+		<div class="panel panel-default">
+			<div class="panel-heading">Notifications</div>
+				<div class="panel-body" style="padding: 3% 1%">
+					<%= link_to notifications_path do %>
+						You have <span id="num_of_unread"> <%=current_user.unread %> </span>notification(s).
+					<% end %>
+				</div>
+			</div>
+		</div>
+	<!-- Your Listings -->
+	<div class="row col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Your Lessons (<%= @lessons.length %>)</div>
+				<div class="panel-body">
+					<%= render partial: "lessons/lesson_list", locals: {lessons: @lessons} %>
+				</div>
+				<div class="col-md-3 right">
+				</div>
+		</div>
+	</div>
+</div>
+</div>
