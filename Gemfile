@@ -95,4 +95,6 @@ end
 group :production do
 gem 'pg'
 gem 'rails_12factor'
+#Login funct
+gem 'devise', '~>4.2'
 end
