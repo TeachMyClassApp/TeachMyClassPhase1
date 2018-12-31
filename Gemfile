@@ -63,14 +63,15 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 #photo attachment
-gem 'paperclip', '~> 5.1.0'
+gem "paperclip", ">= 5.2.0"
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick', '3.8.0'
 gem 'dropzonejs-rails' 
 #icons
 gem "font-awesome-rails"
 #photo storage
-gem 'aws-sdk', '~> 2.8'
+#gem 'aws-sdk', '~> 2.8'
+gem 'aws-sdk-s3', '~> 1.0.0.rc2'
 #google maps location
 gem 'geocoder', '~> 1.4'
 #jquery date picker and price slider

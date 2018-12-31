@@ -9,12 +9,11 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <%= f.text_field :start_date, readonly: true, value: Date.today, class: "form-control datepicker" %>
-                </div>
+                  <%= f.text_field :start_datetime,  readonly: true, value: Date.today, class: "form-control datepicker"%>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <%= f.text_field :end_date, readonly: true, value: Date.today, class: "form-control datepicker" %>
+                  <%= f.text_field :end_datetime, readonly: true, value: Date.today, class: "form-control datepicker"%>
                 </div>
               </div>
             </div>
@@ -22,8 +21,8 @@
             <div class="form-group">
               <div class="btn-group" data-toggle="buttons-radio">
                   <%= f.collection_radio_buttons :status, Calendar.statuses, :first, :first, checked: Calendar.statuses.first do |b|
-                      b.radio_button + b.label {b.text.split("_").join(" ").capitalize}
-                  end %>
+                      b.radio_button + b.label {b.text.split("_").join(" ").capitalize} 
+                 end %>
               </div>
             </div>
 
