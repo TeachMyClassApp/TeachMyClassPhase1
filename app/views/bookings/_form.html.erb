@@ -1,56 +1,51 @@
   <%= form_for ([@lesson, @lesson.bookings.new]) do |f| %>
-  <div>
-  <div class="panel panel-default">
-    <div class="panel-heading" style: "padding: 2%;"> <div class="pull-left"> Book <strong> <%=@lesson.lesson_name%> </strong> NOW! </div></div>
-    <div class="panel-body">
-      <div id="preview" style="display: none">
-        <!--If Lesson given pricing_type free on setup then it has a cost of $0 and does not require stripe @checkout -->
+  <div class="booking-form">
+    <div class="row col-md-12">
+      <div class="col-md-4 pull-left calculate">
+      <h4> Total Session Cost </h4> 
+    <!--DETERMINE PRICE-->
+      <!--If Lesson given pricing_type free on setup then it has a cost of $0 and does not require stripe @checkout -->
         <%if @lesson.Free? %>
-          <p>Free</p>
+          <p class="cost-explainer">This lesson is offered for free. The expert may give out promotional material for students, such as a flyer, promoting related services.</p>
         <!--If Lesson given pricing_type Learner cost is calculated as number_of_learners * per learner cost -->
         <% elsif @lesson.Learner? %>
-        <table class="reservation-table">
-          <tbody>
-            <tr>
-              <td> Number of Learners </td>
-              <td> <%=f.number_field :number_of_learners, class: "form-field form-control", min: 0, max:99 %> </td>
-            </tr>
-            <tr>
-              <td> Total Session Cost </td>
-              <td> <span id="booking_total">num of learners * price  </span></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="">
+          <div>
+            <p class="cost-explainer"> This lesson has a 'per learner' fee. Tell us how many students you are expecting, and we will estimate your total.</P>
+            <div style="font: #000; font-size: 1.0em; text-align: center;">
+              <div class="row"> 
+                <br />
+                <br />
+              <p class="pull-left" > Number of Learners </p>
+              <span class="learner_field"><%=f.number_field :number_of_learners, class: "form-field form-control pull-right", min: 0, max:99 %> </span>
+              </div>
+            </div>
+            <div>
+                <br />
+                <br />
+              <div> <span class="booking_total"> number_of_learners * @lesson.price  </span></div>
+            </div>
+          </div>
+        </div>
         <!--If Lesson given pricing_type Session cost is calculated as lesson cost * number of session (currently always one) -->
         <% elsif @lesson.Session? %>
-      <table class="reservation-table">
-          <tbody>
-            <tr>
-              <td> Total Session Cost </td>
-              <td> <span> <%= @lesson.price %> (up to <%= @lesson.class_size %> students). </span></td>
-            </tr>
-          </tbody>
-      </table>
-        <% end %>
+      <div class="reservation-table">
+        <p class="cost-explainer"> This lesson is provided for a flat fee for up to <%= @lesson.class_size %> students. If you have more <%= @lesson.class_size %> students you will need to book more sessions</p>
+          <div>
+            <div style="font: #000; font-size: 1.0em; text-align: center;" >
+              <div style="font: #000;"> Total Session Cost: $  
+             <span> <%= @lesson.price %>0 (up to <%= @lesson.class_size %> students) </span></div>
+            </div>
+          </div>
       </div>
-     <br>
-      <br />
-     <!--BOOTSTRAP LINKED PICKERS-->
+        <% end %>
+    </div>
 
-          <!--<div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <%= f.text_field :start_datetime,  readonly: true, value: Date.today, class: "form-control datepicker"%>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <%= f.text_field :end_datetime, readonly: true, value: Date.today, class: "form-control datepicker"%>
-                </div>
-              </div>
-            </div> -->
-
-      <div class="row" style="margin-left: 20%">
-    <div class='col-md-5'>
+      <div class="col-md-8 pull-right">
+        <div class="booking-heading">
+          <h1 class="booking-title">  Book <%=@lesson.lesson_name%> </h1> <br />
+        </div>
+        <!--BOOTSTRAP LINKED PICKERS-->
         <div class="form-group">
             <div class='input-group date' id='booking_start_datetime' style="border: 2px #155e63">
               <%=f.text_field :start_datetime, class: "form-field form-control input-group-addon", id: "booking_start_datetime" %>
@@ -59,8 +54,6 @@
                 </span>
             </div>
         </div>
-    </div>
-    <div class='col-md-5'>
         <div class="form-group">
             <div class='input-group date' id='booking_end_datetime' style="border: 2px #155e63">
                       <%=f.text_field :end_datetime,  class: "form-field form-control input-group-addon", id: "booking_end_datetime" %>
@@ -70,28 +63,26 @@
             </div>
         </div>
     </div>
-</div>
-      
-      <% if @lesson.Instant? %>
-      <br/>
-      <p style="text-align: center">This lesson can be booked instantly.</p>
-      <% else %>
-      <br />
-      <p style="text-align: center"> This lesson can be provisionally booked, and the expert will be in touch shortly to confirm. </p>
-        <% end%>
-  <br/>
-  <span>
-  <% if @lesson.Instant? %>
-    <%= f.submit "Book Now", id: "btn_book", class: "btn btn-normal btn-block", style: "width: 50%; margin-left: 25%", disabled: false %>
-  <% else %>
-    <%= f.submit "Request Now", id: "btn_book", class: "btn btn-normal btn-block", style: "width: 50%; margin-left: 25%", disabled: false %>
-  <% end %>
-  </span>
-<% end %>
-</div>
   </div>
+<!--Booking Type Info -->
+<div class="row col-md-12">
+  <% if @lesson.Instant? %>
+      <p style="text-align: center">This lesson can be booked instantly.</p>
+  <% else %>
+      <p style="text-align: center"> This lesson can be provisionally booked, and the expert will be in touch shortly to confirm. </p>
+  <% end%>
 </div>
+  <div class="row col-md-12">
+<!--Booking Submit Info-->
+      <% if @lesson.Instant? %>
+        <%= f.submit "Book Now", id: "btn_book", class: "btn btn-normal btn-block", style: "width: 50%; margin-left: 25%", disabled: false %>
+      <% else %>
+        <%= f.submit "Request Now", id: "btn_book", class: "btn btn-normal btn-block", style: "width: 50%; margin-left: 25%", disabled: false %>
+      <% end %>
+    <% end %>
+  </div>
 
+</div>
 
 <!--BOOTSTRAP LINKED PICKERS SCRIPT-->
 <script type="text/javascript">

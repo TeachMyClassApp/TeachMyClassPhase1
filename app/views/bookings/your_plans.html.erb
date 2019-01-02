@@ -6,7 +6,7 @@
       <li class="sidebar-item"><%= link_to "Your Bookings", your_bookings_path, class: "sidebar-link" %></li>
     </ul>
   </div>
-  <div class="col-md-10" style="margin: 0 10% 0 20%;">
+  <div class="" style="margin: 0 1% 0 20%;">
     <div class="panel panel-default">
       <div class="panel-heading">
         Your plans
@@ -14,24 +14,28 @@
       <div class="panel-body">
         <% @plans.each do |plan| %>
           <div class="row">
-            <div class="row col-md-2">
+            <div class=" col-md-12">
               <p><%= plan.status %> </p>
               <%= link_to lesson_path(plan.lesson) do %>
                 <%= image_tag plan.lesson.cover_photo(:thumb) %>
               <% end %>
             </div>
-            <div class="row col-md-4">
+            <div class="col-md-10">
               <%= link_to plan.lesson.lesson_name, lesson_path(plan.lesson) %><br/><br/>
               <span>
                 <%= image_tag avatar_url(plan.lesson.user), class: "img-circle avatar-small" %>
                 <%= link_to user_path(plan.lesson.user) do %>
                     <%= plan.lesson.user.username %>
+              <div class="col-md-5 pull-right">
+                <p> Start: <%= plan.start_datetime.to_formatted_s(:long_ordinal) %> <br/> <br/> </p>
+                <p> Finish: <%= plan.end_datetime.to_formatted_s(:long_ordinal)%> <br/> <br/> </p>
+              </div>
               </span>
                 </div>
                 <% end %>
               <span>
-            <div class="col-md-3">
-                <%= render partial: "reviews/teacher_form", locals: {booking: plan} if plan.Approved? %>
+            <div class="row col-md-3">
+                <%= render partial: "reviews/teacher_form", locals: {booking: plan} if !plan.Declined? %>
             </div>
               </span>
           </div>

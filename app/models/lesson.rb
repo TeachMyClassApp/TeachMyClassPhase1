@@ -12,6 +12,10 @@ class Lesson < ApplicationRecord
 	geocoded_by :address
 	after_validation :geocode, if: :address_changed?
 
+	#Elastic Search for full text of lessons
+	#include Elasticsearch::Model
+  	#include Elasticsearch::Model::Callbacks
+
 
 	validates :learning_area, presence: true
 	validates :achievement_objective, presence: true

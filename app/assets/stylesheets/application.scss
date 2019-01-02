@@ -22,6 +22,133 @@ font-family: 'Work Sans', sans-serif;
   display: none;
 }
 
+
+.for_teachers_banner {
+  background-image: url("/assets/sci.jpg");
+  background-size: cover;
+  position: top;
+  display: cover;
+  background-color: lightgray;
+  height: 110%;
+  margin-top: -15%;
+  z-index: -5;
+}
+
+.for_experts_banner {
+  background-image: url("/assets/pe.jpg");
+  background-size: cover;
+  background-position: center;
+  display: cover;
+  background-color: lightgray;
+  height: 110%;
+  margin-top: -15%;
+  z-index: -5;
+}
+
+.lesson_show_buttons {
+  text-position: center;
+  position: center;
+  padding: 1% 2%;
+  border: 2px;
+  background: #eae7e7;
+  font-size: 1.1em;
+}
+
+.book_now, .book_now a {
+  position: relative;
+  float: left;
+  margin: 20% 1% 5% 36%;
+  border: 2px solid #000;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.ask_expert, .ask_expert a {
+  position: relative;
+  float: right;
+  margin: 20% 36% 5% 1%;
+  border: 2px solid #000;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+a:hover, .ask_expert.a:hover {
+  color: #000;
+}
+
+.lesson_cover_img {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 600px;
+  margin-top: -3%;
+}
+
+.lesson_title, .lesson_title h1, .lesson_location{
+  font-weight: 100;
+  text-align: center;
+  color: #f9f8eb;
+  background: #155e63;
+  padding: 2% 10%;
+  margin-top: -3.1%;
+}
+
+.lesson_location, .lesson_location a {
+  text-decoration: none;
+  color: #eae7e7;
+  font-size: 16px;
+}
+
+.lesson_info_bar {
+  background: #eae7e7;  
+  margin: 5% 0;
+  padding: 3% 0;
+}
+
+.lesson_keyFacts {
+  padding-top: 3%;
+}
+
+.lesson_text_about, lesson_expert_about {
+  width: 80%;
+  margin: 1% 10%;
+}
+
+.booking-form {
+  width: 100%;
+  height: 100%;
+  margin: 0 20%;
+}
+
+.booking-heading {
+  padding: 1%; 
+  margin-bottom: 10%;
+  font-size: 1.5em;
+  text-align: center;
+  width: 100%;
+  background-color: #76b39d;
+}
+
+.calculate {
+  background: #eae7e7;
+}
+
+.cost-explainer {
+  font-size: 14px;
+  width: 90%;
+  margin: 1% 5%;
+}
+
+.learner_field {
+  width: 20%;
+  padding-top: 2%
+}
+
+.booking_total {
+   font-size: 14px;
+  width: 90%;
+  margin: 2% 5%;
+}
 //FORMS
 .form-group{
 	margin-bottom: 25px;
@@ -38,13 +165,14 @@ font-family: 'Work Sans', sans-serif;
 // NAVBARS
 .navbar-default {
   background-color: #FFFFFF;
-  z-index: 5
+  z-index: 5;
   }
 
 .navbar-default .navbar-brand {
   color: #FF5A5F;
   font-size: 2em;
   font-weight: 400;
+  z-index: 5;
 }
 
 // BUTTONS
@@ -52,6 +180,7 @@ font-family: 'Work Sans', sans-serif;
   display: block;
   white-space: normal;
   width: 100%;
+  z-index: 5
 }
 
 .btn {
@@ -520,10 +649,12 @@ features .text-line-through {
   padding: 0;
   margin: 0;
   text-align: center;
+  z-index:5;
   > li {
     display: inline-block;
     float: none;
     margin-left: 2%;
+     z-index:5;
     > a {
       padding-left: 30px;
       padding-right: 30px;
@@ -556,7 +687,7 @@ features .text-line-through {
 //FOOTER
 .footer {
 	background-color: #155e63;
-  margin-bottom: -3%;
+  margin-bottom: -5%;
 }
 
 .footer-social {
@@ -744,6 +875,7 @@ h3 {
 }
 
 .about-title {
+  margin-top: 5%;
   padding: 15%;
   background: rgba(255, 255, 255, 0.3)
 }

@@ -1,5 +1,5 @@
 Devise.setup do |config|
-  config.mailer_sender = '<hello@teachmyclass.me>'
+  config.mailer_sender = 'Laura at Teach My Class <hello@teachmyclass.me>'
 
   require 'devise/orm/active_record'
   config.case_insensitive_keys = [:email]

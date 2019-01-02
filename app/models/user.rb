@@ -56,11 +56,11 @@ class User < ApplicationRecord
       if registered_user
       else
       where(provider: access_token.provider, uid: access_token.uid).first_or_create do |user|
-        user.email = access_token.info.email
-        user.password = Devise.friendly_token[0,20]
-        user.username = access_token.info.name   
-        user.image = access_token.info.image 
-        user.uid = access_token.uid
+        user.email = access_token.info.email,
+        user.password = Devise.friendly_token[0,20],
+        user.username = access_token.info.name,   
+        user.image = access_token.info.image,
+        user.uid = access_token.uid,
         user.provider = access_token.provider
         #
         # If you are using confirmable and the provider(s) you use validate emails, 

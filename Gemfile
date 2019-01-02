@@ -50,7 +50,7 @@ gem 'toastr-rails', '~>1.0'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '~> 0.5.0'
 #photo attachment
 gem "paperclip", ">= 5.2.0"
 gem 'carrierwave', '~> 1.0'
@@ -80,6 +80,8 @@ gem 'stripe', '~> 3.0.0'
 gem 'rails-assets-card', source: 'https://rails-assets.org'
 #env
 gem 'figaro'
+#search text global
+gem 'tire', '~> 0.6.2'
 
 
 group :development, :test do

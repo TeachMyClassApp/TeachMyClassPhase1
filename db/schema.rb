@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181219203852) do
+ActiveRecord::Schema.define(version: 20190101071811) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "user_id"
@@ -154,7 +154,7 @@ ActiveRecord::Schema.define(version: 20181219203852) do
     t.string   "image"
     t.string   "phone_number"
     t.string   "string"
-    t.string   "description"
+    t.         "biography"
     t.string   "text"
     t.string   "pin"
     t.boolean  "phone_verified"

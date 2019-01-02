@@ -24,21 +24,6 @@
 <div class="col-md-6 col-md-offset-3">
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render 'shared/devise_mes' %>
-
-<%= form_for @user, url: user_path(:avatar), method: 'post', html: {multipart: true} do |f| %>
-            <div class="row">
-              <div class="form-group">
-                <span class="btn btn-default btn-file text-babu">
-                  <i class="fa fa-cloud-upload"></i>Select Photos
-                    <%= file_field_tag "images[]", type: :file, multiple: true %>
-                </span>
-              </div>
-            </div>
-            <div class="text-center">
-              <%= f.submit "Add Photos", class: "btn btn-form" %>
-            </div>
-
-                    <% end %>
           </div>
         </div>
 
@@ -50,8 +35,8 @@
     <%= f.text_field :username, autofocus: true, autocomplete: "off", placeholder: "your username (e.g. Mr Connor)", class: "form-control"%>
   </div>
 
-   <div class="form-group">
-    <%= f.text_area :description, rows:5, cols:25, autofocus: true, autocomplete: "off", placeholder: "Tell us a little about yourself!", class: "form-control"%>
+     <div class="form-group">
+    <%= f.text_area :biography, rows:5, cols:25, autofocus: true, autocomplete: "off", placeholder: "Tell us a little about yourself!", class: "form-control"%>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

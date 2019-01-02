@@ -25,6 +25,13 @@ class LessonsController < ApplicationController
     end
   end
 
+  def destroy
+    #@lesson = Lesson.find(params[:id])
+    #@lesson.destroy
+    #redirect_to listing_lesson_path
+   #flash[:notice] = "That lesson is gone for good."
+  end 
+
   def listing
   end
 
@@ -58,15 +65,15 @@ class LessonsController < ApplicationController
   def preload
     now = DateTime.now
     bookings = @lesson.bookings.where("(start_datetime >= ? OR end_datetime >= ?) AND status = ?", now, now, status)
-    #unavailable_dates = @lesson.calendars.where("status = ? AND session > ?", 1, now)
+    unavailable_dates = @lesson.calendars.where("status = ? AND session > ?", 1, now)
     #special_dates = @lesson.calendars.where("status = ? AND session > ? AND price <> ?", 0, now, @lesson.price)
 
     render json: bookings
-    #{
-      #bookings: bookings,
-      #unavailable_dates: unavailable_dates
-      #special_dates: special_dates
-    #}
+    {
+      bookings: bookings,
+      unavailable_dates: unavailable_dates
+#special_dates: special_dates
+    }
   end
 
   def preview

@@ -63,10 +63,11 @@ Rails.application.configure do
     address: 'smtp.mailgun.org',
     port: 587,
     domain: 'mail.teachmyclass.me',
-    authentification: 'plain',
-    user_name: ENV['MAILGUN_USERNAME'],
-    password: ENV['MAILGUN_PASSWORD']
+    user_name: ENV['MAILGUN_USER_NAME'],
+    password: ENV['MAILGUN_PASSWORD'],
+    authentication: 'plain'
   }
+ 
 
   config.paperclip_defaults = {
     storage: :s3,

@@ -12,6 +12,6 @@ class Booking < ApplicationRecord
   def create_notification
   	type = self.lesson.Instant? ? "New Booking" : "New Request"
     teacher = User.find(self.user_id)
-    Notifications.create(content: "#{learning_area} from #{teacher.username}", user_id: self.lesson.user_id)
+    #Notifications.create(content: "#{booking.lesson_name} from #{teacher.username}", user_id: self.lesson.user_id)
   end 
 end

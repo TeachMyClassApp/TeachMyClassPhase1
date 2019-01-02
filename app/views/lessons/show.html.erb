@@ -20,40 +20,26 @@
 <!-- Image Header -->
 <div class="row">
 	<div class="col-md-12">
-		<%= image_tag @lesson.cover_photo(nil), width: "100%", height:"500px" %>
+		<%= image_tag @lesson.cover_photo(nil), class: "lesson_cover_img" %>
 	</div>
-
-<br/> <br/>
-<% if current_user.id == @lesson.user.id %>
-					<%= link_to "", listing_lesson_path(@lesson), class: "btn btn-form fa fa-pencil" %>	
-					<%= link_to "", listing_lesson_path(@lesson), class: "btn btn-form fa fa-trash" %>
+<% if current_user.id == @lesson.user_id %>
+	<%= link_to "", listing_lesson_path(@lesson), class: "btn btn-form fa fa-pencil lesson_show_buttons" %>	
+	<%= link_to "", listing_lesson_path(@lesson), class: "btn btn-form fa fa-trash lesson_show_buttons" %>
+<% else %>
+	 <%= link_to "Book Now", "#booking_form", class: " lesson_show_buttons book_now" %>
+	 <%= link_to "Ask the Expert", conversations_path(sender_id: current_user.id, recipient_id: @lesson.user_id), method: :post, class: "lesson_show_buttons ask_expert" %>
 <% end %>
-</div>
-<div style= "margin: 2% 10% 2% 10%;">
-<div class="row">
-<!-- Left Panel -->
-	<div class="col-md-8">
-		<!--Lesson Name-->
-		<div class="row">
-			<div class="col-md-8">
-				<h1><%= @lesson.lesson_name %></h1>
-				<%= @lesson.address %>
-			</div>
-			<div class="col-md-4 text-center">
-				<%= image_tag avatar_url(@lesson.user), class: "img-circle avatar-large"%> <br /> <br />
-				<%= @lesson.user.username%>
-			</div>
-		</div>
 	</div>
-</div>
-		<hr/>
 
-
-		<!--Lesson Info-->
-		<div class="row text-babu">
-			<div class="row text-center row-space-1">
+	<!--Lesson Info-->
+		<div class="row text-babu lesson_info_bar">
+			<div clas="row lesson_title">
+				<h4 class="lesson_title"><%= @lesson.lesson_name %></h4>
+	 			<h6 class="lesson_location"> <%= link_to @lesson.address, "#location_map", class: "" %> </h6>
+			</div>
+			<div class="row text-center row-space-1 lesson_keyFacts">
 				<div class="col-md-3">
-					<i class="fa fa-graduation-cap fa-2x"></i>
+					<i class="fa fa-graduation-cap fa-2x row "></i>
 				</div>
 				<div class="col-md-3">
 					<i class="fa fa-cubes fa-2x"></i>
@@ -65,50 +51,48 @@
 					<i class="fa fa-clock-o fa-2x"></i>
 				</div>
 			</div>
-			<div class="row text-center">
+			<div class="text-center">
 				<div class="col-md-3"><%= @lesson.learning_area %></div>
 				<div class="col-md-3">Curriculum Level <%= @lesson.curriculum_level %> </div>
 				<div class="col-md-3"><%= pluralize(@lesson.class_size, "student" )%></div>
 				<div class="col-md-3">
 					<% if @lesson.duration < 60 %>
-						<%= (@lesson.duration) %> mins </div>
+					<%= (@lesson.duration) %> mins 
 					<% elsif @lesson.duration == 90 %>
-						1 1/2 hrs
+					1 1/2 hrs
 					<% else %>
 					<%= (@lesson.duration / 60) %> hrs
 					<% end %>
+				</div>
 			</div>
 		</div>
-		<hr/>
 
-		<!-- Right Panel -->
-	<div class="col-md-9 row align-items-center">
-	<!--booking form -->
-		<%= render 'bookings/form' %>
-	</div>
-
-
-				<!--Lesson Description-->
+<!-- Left Panel -->
 		<div class="row">
-			<div class="col-md-12">
-				<h3> About this Lesson </h3>
+			<div class="col-md-4 text-center pull-left lesson_expert_about" style="margin-top: -3%">
+				<h4> About <%= @lesson.user.username%></h4>
+				<%= image_tag avatar_url(@lesson.user), class: "img-circle avatar-large"%> <br /> <br />
+				<hr />
+				<%= @lesson.user.biography %>
+				<br />
+				<br />
+				<%= link_to "Lesson Reviews", "#ratings", class: "" %>
+			</div>
+			<div class="col-md-8 pull-right" style="margin-top: -3%">
+			<!--Lesson Description-->
+			<div class="lesson_text_about">
+			<h4> About this Lesson </h4>
 				<p><%= @lesson.description %></p> <br/>
-				<strong><p><%= @lesson.keywords %></p></strong>
+			<h4> Keywords </h4>
+				<strong><p><%= @lesson.keywords %></p></strong><br/>
+			<div class="padding-top">
+			<!--Lesson Features-->
+			<h4> Features </h4>
 			</div>
-		</div>
-		<hr/>
-
-		<!--Lesson Features-->
-		<div class="row padding-top">
-			<div class="col-md-3">
-				<h4> Features </h4>
-			</div>
-
-			<div class="col-md-9">
 				<div class="row">
 					<div class="col-md-6">
 						<ul class="features padding-top">
-							<li class="<%= 'text-line-through' if !@lesson.registered_teacher_required %>"> Registered Teacher </li>
+							<li class="<%= 'text-line-through' if !@lesson.registered_teacher_required %>"> Expert is a Registered Teacher </li>
 							<li class="<%= 'text-line-through' if !@lesson.technology_available %>"> Technology Required </li>
 							<li class="<%= 'text-line-through' if !@lesson.inquiry_learning %>"> Inquiry Learning </li>
 							<li class="<%= 'text-line-through' if !@lesson.project_learning %>"> Project-Based Learning </li>
@@ -125,10 +109,18 @@
 				</div>
 			</div>
 		</div>
-		<hr/>
+		</div>
+
+
+		<!-- Right Panel -->
+	<div class="col-md-9 row align-items-center" id="booking_form">
+	<!--booking form -->
+		<%= render 'bookings/form' %>
+	</div>
+
 
 <!-- Reviews / Stars -->
-	<div class="row">
+	<div class="row" id="ratings">
 		<div class="col-md-12">
 			<h3> <%= pluralize(@teacher_reviews.count, "Review") %>
 				<div id="average_rating"></div>
@@ -142,10 +134,9 @@
 
 
 <!-- Google Maps -->
-	<div class="row">
+	<div class="row" id="location_map">
 		<div id="map" style="width: 100%; height: 400px"></div>
 	</div>
-</div>
 
 
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQys3wStSI4v2tAKDkr80bXtFW-iACZWw&callback=initMap"></script>
