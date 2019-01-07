@@ -53,10 +53,10 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
 #ActionSocket for live chat updates
-  config.action_cable.url = "ws://demo.teachmyclass.me/cable"
+  config.action_cable.url = "ws:warm-scrubland-86969.herokuapp.com/cable"
 
   #devise
-  config.action_mailer.default_url_options = { host: 'demo.teachmyclass.me' }
+  config.action_mailer.default_url_options = { host: 'warm-scrubland-86969.herokuapp.com' }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
