@@ -63,13 +63,17 @@ font-family: 'Work Sans', sans-serif;
   z-index: 2;
 }
 
-.ask_expert, .ask_expert a {
+.ask_expert, .ask_expert a, .lesson_editor_button, .lesson_editor_button a {
   position: relative;
   float: right;
   margin: 20% 36% 5% 1%;
   border: 2px solid #000;
   border-radius: 10px;
   z-index: 2;
+}
+
+.lesson-editor-button-edit {
+  margin-right: 100%;
 }
 
 a:hover, .ask_expert.a:hover {
@@ -131,12 +135,42 @@ a:hover, .ask_expert.a:hover {
 
 .calculate {
   background: #eae7e7;
+  height: 100%;
+  padding-bottom: 15%;
+}
+
+.total_cost {
+  padding: 2%;
+  font-weight: 100;
+}
+
+.session_heading{
+  padding: 10% 3% 3% 3%;
+  font-weight: 100;
 }
 
 .cost-explainer {
   font-size: 14px;
   width: 90%;
-  margin: 1% 5%;
+  margin: 1% 5% 5% 1%;
+}
+
+.cost_gap {
+  padding-bottom: 100%;
+}
+
+.cover_gap {
+  padding-bottom: 29%;
+}
+
+.back_text {
+  font-size: 14px;
+  margin: 1%;
+}
+
+.back_button {
+  position: center;
+  margin: 10% 0 1% 10%;
 }
 
 .learner_field {
@@ -144,10 +178,24 @@ a:hover, .ask_expert.a:hover {
   padding-top: 2%
 }
 
+.number_of_learners {
+  width: 60%;
+  margin: 10% 20%;
+}
+
 .booking_total {
    font-size: 14px;
   width: 90%;
   margin: 2% 5%;
+}
+
+.datepicker-field-design {
+  width: 70%;
+  margin: 2% 10%;
+}
+
+.datepicker-field-view {
+  width: 100%;
 }
 //FORMS
 .form-group{

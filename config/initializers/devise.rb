@@ -19,9 +19,6 @@ Devise.setup do |config|
   config.omniauth :google_oauth2, ENV['GOOGLE_SECRET_KEY'], ENV['GOOGLE_APP_ID'], {access_type: "offline", approval_prompt: ""}
 
   config.omniauth :facebook, ENV['FACEBOOK_SECRET_KEY'], ENV['FACEBOOK_APP_ID'], scope: 'email', info_fields: 'email, name'
-
-  config.omniauth :twitter, ENV['TWITTER_SECRET_KEY'], ENV['TWITTER_APP_ID']
+  config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET']
 end 
-
-
 

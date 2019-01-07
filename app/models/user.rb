@@ -46,29 +46,25 @@ class User < ApplicationRecord
 
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
-    data = access_token.info
     user = User.where(:provider => access_token.provider, :uid=> access_token.uid).first
 
-    if user
-      return user
-    else
-      registered_user = User.where(:email => access_token.email).first
-      if registered_user
-      else
-      where(provider: access_token.provider, uid: access_token.uid).first_or_create do |user|
-        user.email = access_token.info.email,
-        user.password = Devise.friendly_token[0,20],
-        user.username = access_token.info.name,   
-        user.image = access_token.info.image,
-        user.uid = access_token.uid,
-        user.provider = access_token.provider
-        #
-        # If you are using confirmable and the provider(s) you use validate emails, 
-        # uncomment the line below to skip the confirmation emails.
-         user.skip_confirmation!
-       end
-     end 
-   end 
+    return user if user
+
+    registered_user = User.where(:email => access_token.info.email).first
+    return registered_user if registered_user
+
+    where(provider: access_token.provider, uid: access_token.uid).first_or_create do |user|
+      user.email = access_token.info.email,
+      user.password = Devise.friendly_token[0,20],
+      user.username = access_token.info.name,   
+      user.image = access_token.info.image,
+      user.uid = access_token.uid,
+      user.provider = access_token.provider
+      #
+      # If you are using confirmable and the provider(s) you use validate emails, 
+      # uncomment the line below to skip the confirmation emails.
+       user.skip_confirmation!
+    end
   end 
 
   def generate_pin

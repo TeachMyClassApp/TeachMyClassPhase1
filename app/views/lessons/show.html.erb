@@ -1,5 +1,5 @@
 <% content_for :head do %>
-<title><%= @lesson.lesson_name %> | Teach My Class </title>
+<title> Book  <%= @lesson.lesson_name %> | Teach My Class </title>
 
 <!--Twitter-->
 <meta name="twitter:card" content="summary_large_image">
@@ -18,15 +18,16 @@
 <% end %>
 
 <!-- Image Header -->
-<div class="row">
+<div class="row" id="top">
 	<div class="col-md-12">
 		<%= image_tag @lesson.cover_photo(nil), class: "lesson_cover_img" %>
 	</div>
 <% if current_user.id == @lesson.user_id %>
-	<%= link_to "", listing_lesson_path(@lesson), class: "btn btn-form fa fa-pencil lesson_show_buttons" %>	
-	<%= link_to "", listing_lesson_path(@lesson), class: "btn btn-form fa fa-trash lesson_show_buttons" %>
+	<%= link_to "", listing_lesson_path(@lesson), class: "btn btn-form fa fa-pencil lesson_show_buttons lesson_editor_button lesson-editor-button-edit" %>	
+	<%= link_to "", listing_lesson_path(@lesson), class: "btn btn-form fa fa-trash lesson_show_buttons lesson_editor_button" %>
+	<div class="cover_gap"></div>
 <% else %>
-	 <%= link_to "Book Now", "#booking_form", class: " lesson_show_buttons book_now" %>
+	 <%= link_to "Book Now", "#booking_form", class: "lesson_show_buttons book_now" %>
 	 <%= link_to "Ask the Expert", conversations_path(sender_id: current_user.id, recipient_id: @lesson.user_id), method: :post, class: "lesson_show_buttons ask_expert" %>
 <% end %>
 	</div>

@@ -50,7 +50,8 @@ gem 'toastr-rails', '~>1.0'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2', '~> 0.5.0'
+gem 'omniauth-google-oauth2'
+gem 'jwt', '~> 2.1'
 #photo attachment
 gem "paperclip", ">= 5.2.0"
 gem 'carrierwave', '~> 1.0'
@@ -68,7 +69,7 @@ gem 'jquery-ui-rails', '~> 5.0'
 #search function
 gem 'ransack', '~> 1.7'
 #twilio sms verification
-gem 'twilio-ruby', '~> 4.11.1'
+gem 'twilio-ruby'
 #calendar
 gem 'fullcalendar-rails', '~> 3.4.0'
 #booking selector date and time
@@ -96,6 +97,4 @@ end
 group :production do
 gem 'pg'
 gem 'rails_12factor'
-#Login funct
-gem 'devise', '~>4.2'
 end
